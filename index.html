@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta content="text/html; charset=UTF-8" />
+    <title>.::-|Controle de ponto|-::.</title>
+</head>
+<style>
+    * {
+        border: 0px;
+        margin: 0px;
+    }
+
+    body {
+
+        
+        color: #000c0c;
+        background-color: #aaeeec;
+    }
+
+    header {
+        background-color: #003366;
+        color: #fff;
+        padding: 10px;
+        text-align: center;
+    }
+
+    .container { 
+        width: 440px; 
+    margin-left: auto;
+    margin-right: auto; 
+}
+
+.video{
+    margin: 5px;
+    width: 400px;
+    height: 300px;
+    color: #fff;
+    padding: 10px;
+    background-color: #f8ffff;
+    text-align: center;
+    border: #000c0c solid 1px;
+}
+
+
+.canvas{
+    margin: 5px;
+    width: 400px;
+    height: 300px;
+    color: #fff;
+    padding: 10px;
+    background-color: #f8ffff;
+    text-align: center;
+    border: #000c0c solid 1px;
+}
+
+#canva{
+    width: 400px;
+    height: 300px;
+}
+
+button{
+        background-color: #002c8b;
+        color: #f8ffff;
+        border-radius: 5px;
+        width: 100px;
+        height: 30px;
+    }
+</style>
+
+<body>
+    <header>
+        <img src="/images/logo-sant-costa-final-mesmo.png" width="50" alt="" srcset="">
+        <h2>Controle de ponto</h2>
+    </header>
+    <div class="container">
+        <div class="video">
+            <video src=""></video>
+        </div>
+        <div class="canvas">
+            <canvas id="canva"></canvas>
+        </div>
+        <button class="button" type="button">PONTO</button>        
+    </div>
+    
+    <script>
+    const video = document.querySelector('video');
+    
+    navigator.mediaDevices.getUserMedia({video: true})
+    .then(stream => {
+        video.srcObject = stream;
+        video.play();
+    })
+    .catch(error => {
+        console.log(error);
+    })
+
+    document.querySelector('button').addEventListener('click', () => {
+        const canvas = document.querySelector('canvas');
+        const context = canvas.getContext('2d');
+        canvas.width = video.videoWidth;
+        canvas.height = video.videoHeight;
+        context.drawImage(video, 0, 0, canvas.width, canvas.height);
+        const image = canvas.toDataURL('image/png');
+        const xhr = new XMLHttpRequest();
+        const dateLocal = new Date();
+        
+    });
+    </script>
+</body>
+
+</html>
